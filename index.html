@@ -1,0 +1,218 @@
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Flock Dodger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, , user-scalable=no">
+    <meta property="og:title" content="R.A.M. UNIT">
+    <meta name="og:description" content="">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <style>
+      @font-face {
+        font-family: 'Broken Console';
+        src: url('/fonts/broken-console/BrokenConsole-Regular.woff2') format('woff2'), url('/fonts/broken-console/BrokenConsole-Regular.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Broken Console';
+        src: url('/fonts/broken-console/BrokenConsole-Bold.woff2') format('woff2'), url('/fonts/broken-console/BrokenConsole-Bold.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Broken Console Shadow';
+        src: url('/fonts/broken-console/BrokenConsole-BoldShadow.woff2') format('woff2'), url('/fonts/broken-console/BrokenConsole-BoldShadow.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: 'Broken Console';
+      }
+      
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        min-height: 100%;
+        height: 100%;
+        user-select: none; /* Standard syntax */
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        /* touch-action: none; */
+        background: #333;
+      }
+
+      .canvas-container {
+        position: relative;
+        margin: 0 auto;
+        display: flex; justify-content: center;
+        /* background-image: url('/guide-2.png'); */
+        background-position: center;
+        background-size: 102% 102%;
+        /* background: #87CEEB; */
+        
+      }
+
+      #canvas {
+        opacity: 1;
+        /* background: center url('/thumb.png'); */
+        background-size: 102% 102%;
+        width: 100%;
+        aspect-ratio: 9 / 19.5 ;
+      }
+
+      .fill-game-screen {
+        position: absolute;
+        top: 0;
+        left: 0; 
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+      }
+      
+      h1, h2, h3, h4, h5, h6, p, button {
+        margin: 0;
+        padding: 0;
+      }
+      .p-4 {
+        padding: 16px;
+      }
+      .p-5 {
+        padding: 20px;
+      }
+
+      button {
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+        background: transparent;
+
+        /* inherit font & color from ancestor */
+        color: inherit;
+        font: inherit;
+
+        /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+        line-height: normal;
+
+        /* Corrects font smoothing for webkit */
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+
+        /* Corrects inability to style clickable `input` types in iOS */
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-touch-callout: none;
+
+        /* padding: 28px 50px; */
+      }
+
+      button {
+        padding: 40px 0px;
+      }
+
+      #button-1 {
+        background: center url('/img/bird-1.png');
+        background-size: 60px;
+        background-repeat: no-repeat;
+      }
+      #button-1.active {
+        background: center url('/img/bird-1.png'), center url('/img/button-bg.png');
+        background-size: 60px, 80px;
+        background-repeat: no-repeat;
+      }
+      #button-2 {
+        background: center url('/img/bird-2.png');
+        background-size: 60px;
+        background-repeat: no-repeat;
+      }
+      #button-2.active {
+        background: center url('/img/bird-2.png'), center url('/img/button-bg.png');
+        background-size: 60px, 80px;
+        background-repeat: no-repeat;
+      }
+
+      #splash-screen {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: all;
+        transition: all 300ms ease;
+      }
+      #splash-screen.hidden {
+        transform: scale(0.5);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="canvas-container" id="canvas-container">
+      <div class="fill-game-screen" style="display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between;">
+          <h2 id="score" style="padding: 10.5% 9%;"><b>0</b></h2>
+          <!-- <h2 id="fps"><b>0</b></h2> -->
+        </div>
+        <div id='splash-screen' style="position: absolute; top: 20%; width: 100%;">
+          <div style="background: white; border: 5px solid black; display: flex; justify-content: center; align-items: center;">
+            <h1 style="margin-top: 16px; margin-bottom: 8px; font-size: 18px;">Flock Dodger</h1>
+          </div>
+          <div style="background: white; border: 5px solid black; display: flex; justify-content: center; align-items: center; padding: 10px 20px;">
+            <h4 style="margin-top: 8px; text-align: center; font-size: 16px;">Click the incoming bird before it hits the jet engine to save its life!</h4>
+          </div>
+          <button id="start-button" style="cursor: pointer; width: 100%; background: white; border: 5px solid black; display: flex; justify-content: center; align-items: center; padding: 10px 20px;">
+            <h4 style="margin-top: 8px; text-align: center;">Start</h4>
+          </button>
+        </div>
+        <div style="display: flex; flex-direction: column; position: relative; top: 55%;">
+          <div style="display: flex; flex: 1; margin: 0px 50px;">
+            <button class='game-controls active' id='button-1' style="flex: 1;"></button>
+            <button class='game-controls' id='button-2' style="flex: 1;"></button>
+          </div>
+          <!-- <div style="display: flex; margin: 0px 50px;">
+            <button class='game-controls' id='button-3' style="flex: 1;">bird 2</button>
+            <button class='game-controls' id='button-4' style="flex: 1;">bird 3</button>
+          </div> -->
+        </div>
+      </div>
+      <canvas width="1170" height="2532" id="canvas"></canvas>
+    </div>
+    <img id="engine" style="display: none;" src="/img/engine.png" />
+    <img id="road" style="display: none;" src="/img/road.png" />
+    <img id="imgScore" style="display: none;" src="/img/score.png" />
+
+    <img id="bird-1" style="display: none;" src="/img/bird-1.png" />
+    <img id="bird-2" style="display: none;" src="/img/bird-2.png" />
+
+  </body>
+  <script src="/game.js"></script>
+</html>
